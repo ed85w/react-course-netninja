@@ -6,35 +6,28 @@ const Home = () => {
 
   //array destructuring used
   // 'blogs' is var 'setBlogs' is function used to change value of var
-  const [blogs, setBlogs] = useState([
-    {title: "first blog", body: "bfu uif we iweiuh ehro", author: "mario", id: 1},
-    {title: "second blog", body: "poipoi poipoi poi poi poipoi", author: "luigi", id: 2},
-    {title: "third blog", body: "wqeqweqwwee weqw eqwee wewqe", author: "yoshi", id: 3},
-    {title: "fourth blog", body: "vbnvbn vbnv bn vn bvnbvn e", author: "mario", id: 4}
-  ]);
-
-
-  // 'functions'
-  const handleDelete = (id) => {
-    // create new array with filter applied
-    const newBlogs = blogs.filter(blog => blog.id !== id);
-    // use setBlogs to update original 'blogs' variable to the value of the newly created array 
-    setBlogs(newBlogs);
-  }
-
-  const name = "a name"
+  const [blogs, setBlogs] = useState(null);
 
   // runs on every render (load, state changed etc)
   useEffect(() => {
-    console.log("use effect");
-  // })             // default - runs on all renders
-  // },[])          // would only run on first render
-  }, [name])        // runs on first render, then if 'name' changes
+    // fetch data from 
+    fetch('http://localhost:8000/blogs')
+    // then convert response to json
+    .then(response => {
+      return response.json();
+    })
+    // then set 'blogs' variable to value of converted response 
+    .then(data => {
+      console.log(data);
+      setBlogs(data);
+    })
+  }, [])  
 
   return ( 
     <div className="home">
-      <BlogList blogs={ blogs } title="this is the title!!!" handleDelete={handleDelete} />
-      <BlogList blogs={ blogs.filter((blog) => blog.author === "mario" )} title="Mario's Blogs" />
+      {/* '{blogs && ... }' required to allow for fetch of data from 'api' (check if data exists) */}
+      
+      {blogs &&  <BlogList blogs={ blogs } title="this is the title!!!" />}
     </div>
    );
 }
