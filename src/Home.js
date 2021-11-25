@@ -22,11 +22,14 @@ const Home = () => {
     setBlogs(newBlogs);
   }
 
+  const name = "a name"
+
   // runs on every render (load, state changed etc)
   useEffect(() => {
     console.log("use effect");
-    console.log(blogs);
-  })
+  // })             // default - runs on all renders
+  // },[])          // would only run on first render
+  }, [name])        // runs on first render, then if 'name' changes
 
   return ( 
     <div className="home">
