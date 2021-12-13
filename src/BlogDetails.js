@@ -17,6 +17,10 @@ const BlogDetails = () => {
     })
   }
 
+  const goToEdit = () => {
+    history.push(id + '/edit')
+  }
+
   return ( 
     <div className="blog-details">
       { isLoading && <div>Loading...</div> }
@@ -27,6 +31,7 @@ const BlogDetails = () => {
           <p>Written by - { blog.author }</p>
           <div>{ blog.body }</div>
           <button onClick={ handleDelete }>delete</button>
+          <button style={{marginLeft: '10px'}} onClick={ goToEdit }>edit</button>
         </article>
       )}
     </div>
