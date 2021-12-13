@@ -1,4 +1,4 @@
-// custom hook
+// custom hook to fetch data from api
 // custom hooks need to start with the word 'use'
 
 import { useState, useEffect } from "react";
